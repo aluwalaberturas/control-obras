@@ -44,6 +44,12 @@ function doPost(e) {
       return jsonOut({ status: 'ok' });
     }
 
+    if (accion === 'eliminar_obra') {
+      deleteRowById(ss.getSheetByName(SHEET_OBRAS), body.id);
+      deleteMovimientosByObraId(ss.getSheetByName(SHEET_MOV), body.id);
+      return jsonOut({ status: 'ok' });
+    }
+
     if (accion === 'nuevo_movimiento') {
       const sh = ss.getSheetByName(SHEET_MOV);
       sh.appendRow([
@@ -114,6 +120,13 @@ function updateRowById(sheet, id, fields) {
 function deleteRowById(sheet, id) {
   const row = findRowIndexById(sheet, id);
   if (row !== -1) sheet.deleteRow(row);
+}
+
+function deleteMovimientosByObraId(sheet, obraId) {
+  const values = sheet.getDataRange().getValues();
+  for (let i = values.length - 1; i >= 1; i--) {
+    if (String(values[i][1]) === String(obraId)) sheet.deleteRow(i + 1);
+  }
 }
 
 function jsonOut(obj) {
