@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Aluwal · Control de Obras</title>
+<title>Aluwal ¬∑ Control de Obras</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon-192.png">
@@ -337,6 +337,16 @@ body{
 }
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);}
 .field textarea{resize:vertical;min-height:60px;}
+.emp-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.emp-nombre{flex:1;min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.field .emp-row input{width:128px;flex:0 0 128px;}
+.emp-del{background:none;border:1px solid var(--border);color:var(--muted);width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:16px;line-height:1;flex:0 0 auto;}
+.emp-del:active{border-color:var(--danger);color:var(--danger);}
+.emp-empty{font-size:12px;color:var(--muted);padding:6px 0 10px;}
+.field .emp-add-btn{flex:none;width:100%;margin-top:2px;padding:10px;}
+.emp-add-form{display:flex;gap:8px;margin-top:8px;}
+.field .emp-add-form input{flex:1;width:auto;}
+.emp-add-form .btn{flex:0 0 auto;padding:10px 14px;}
 .tipo-selector{display:flex;gap:8px;margin-bottom:16px;}
 .tipo-opt{
   flex:1;
@@ -403,10 +413,10 @@ body{
 <body>
 
 <div class="header">
-  <div class="logo">Aluwal <span>· Control de Obras</span></div>
+  <div class="logo">Aluwal <span>¬∑ Control de Obras</span></div>
   <div class="header-actions">
-    <div class="user-chip" id="user-chip" onclick="promptUser()">—</div>
-    <button class="icon-btn" onclick="syncAll(true)" title="Actualizar">⟳</button>
+    <div class="user-chip" id="user-chip" onclick="promptUser()">‚Äî</div>
+    <button class="icon-btn" onclick="syncAll(true)" title="Actualizar">‚ü≥</button>
   </div>
 </div>
 <div class="sync-indicator" id="sync-indicator"></div>
@@ -428,7 +438,7 @@ body{
 
 <div class="container hidden" id="view-detalle">
   <div class="back-row">
-    <button class="back-btn" onclick="goDashboard()">←</button>
+    <button class="back-btn" onclick="goDashboard()">‚Üê</button>
     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Detalle de obra</div>
   </div>
   <div class="detail-header">
@@ -450,8 +460,7 @@ body{
     <div class="summary-tile"><div class="summary-label">Compras</div><div class="summary-value" id="s-compras">$0</div></div>
     <div class="summary-tile"><div class="summary-label">Gastos</div><div class="summary-value" id="s-gastos">$0</div></div>
     <div class="summary-tile"><div class="summary-label">Sueldos</div><div class="summary-value" id="s-sueldos">$0</div></div>
-    <div class="summary-tile"><div class="summary-label">Días cargados</div><div class="summary-value" id="s-dias">0</div></div>
-    <div class="summary-tile" style="grid-column:1/-1;border-color:var(--accent2);"><div class="summary-label">IVA a descontar</div><div class="summary-value" id="s-iva" style="color:var(--accent2);">$0</div></div>
+    <div class="summary-tile" style="border-color:var(--accent2);"><div class="summary-label">IVA a descontar</div><div class="summary-value" id="s-iva" style="color:var(--accent2);">$0</div></div>
     <div class="summary-tile total"><div class="summary-label">Total gastado</div><div class="summary-value" id="s-total">$0</div></div>
   </div>
 
@@ -476,13 +485,13 @@ body{
 <div class="modal-overlay" id="modal-usuario">
   <div class="modal">
     <div class="modal-title">
-      <span>¿Cómo te llamás?</span>
-      <button class="close-btn" onclick="closeModal('modal-usuario')">×</button>
+      <span>¬øC√≥mo te llam√°s?</span>
+      <button class="close-btn" onclick="closeModal('modal-usuario')">√ó</button>
     </div>
     <div class="field">
       <label>Tu nombre</label>
-      <input id="fu-nombre" placeholder="Ej: Matías" onkeydown="if(event.key==='Enter')guardarUsuario()">
-      <div style="font-size:11px;color:var(--muted);margin-top:6px;">Se usa para identificar quién cargó cada movimiento.</div>
+      <input id="fu-nombre" placeholder="Ej: Mat√≠as" onkeydown="if(event.key==='Enter')guardarUsuario()">
+      <div style="font-size:11px;color:var(--muted);margin-top:6px;">Se usa para identificar qui√©n carg√≥ cada movimiento.</div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-primary" onclick="guardarUsuario()">Guardar</button>
@@ -495,11 +504,11 @@ body{
   <div class="modal">
     <div class="modal-title">
       <span id="modal-obra-title">Nueva obra</span>
-      <button class="close-btn" onclick="closeModal('modal-obra')">×</button>
+      <button class="close-btn" onclick="closeModal('modal-obra')">√ó</button>
     </div>
     <div class="field"><label>Nombre de la obra</label><input id="fo-nombre" placeholder="Ej: Casa Lopez - Pilar"></div>
     <div class="field"><label>Cliente</label><input id="fo-cliente" placeholder="Nombre del cliente"></div>
-    <div class="field"><label>Dirección</label><input id="fo-direccion" placeholder="Dirección de la obra"></div>
+    <div class="field"><label>Direcci√≥n</label><input id="fo-direccion" placeholder="Direcci√≥n de la obra"></div>
     <div class="field"><label>Fecha de inicio</label><input type="date" id="fo-fecha"></div>
     <div class="field"><label>Notas</label><textarea id="fo-notas" placeholder="Opcional"></textarea></div>
     <div class="modal-footer">
@@ -514,7 +523,7 @@ body{
   <div class="modal">
     <div class="modal-title">
       <span>Nuevo movimiento</span>
-      <button class="close-btn" onclick="closeModal('modal-mov')">×</button>
+      <button class="close-btn" onclick="closeModal('modal-mov')">√ó</button>
     </div>
     <div class="tipo-selector">
       <div class="tipo-opt active" data-tipo="compra" onclick="setTipoMov('compra')">Compra</div>
@@ -527,47 +536,57 @@ body{
     <div class="field only-cg">
       <label>Rubro</label>
       <select id="fm-rubro">
-        <option value="Albañilería">Albañilería</option>
+        <option value="Alba√±iler√≠a">Alba√±iler√≠a</option>
         <option value="Pintura">Pintura</option>
-        <option value="Ferretería">Ferretería</option>
-        <option value="Plomería">Plomería</option>
+        <option value="Ferreter√≠a">Ferreter√≠a</option>
+        <option value="Plomer√≠a">Plomer√≠a</option>
         <option value="Sanitarios">Sanitarios</option>
         <option value="Aberturas">Aberturas</option>
         <option value="Vidrios">Vidrios</option>
         <option value="Herramientas">Herramientas</option>
         <option value="Alquiler de maquinaria">Alquiler de maquinaria</option>
         <option value="Techista">Techista</option>
-        <option value="Impermeabilización">Impermeabilización</option>
+        <option value="Impermeabilizaci√≥n">Impermeabilizaci√≥n</option>
         <option value="Gas">Gas</option>
         <option value="Electricidad">Electricidad</option>
-        <option value="Climatización">Climatización (A/A)</option>
+        <option value="Climatizaci√≥n">Climatizaci√≥n (A/A)</option>
         <option value="Cloacas">Cloacas</option>
         <option value="Pisos">Pisos</option>
         <option value="Revestimientos">Revestimientos</option>
         <option value="Durlock">Durlock</option>
-        <option value="Carpintería">Carpintería</option>
-        <option value="Cerrajería">Cerrajería</option>
-        <option value="Iluminación">Iluminación</option>
-        <option value="Portones/Automatización">Portones / Automatización</option>
-        <option value="Jardinería">Jardinería / Paisajismo</option>
+        <option value="Carpinter√≠a">Carpinter√≠a</option>
+        <option value="Cerrajer√≠a">Cerrajer√≠a</option>
+        <option value="Iluminaci√≥n">Iluminaci√≥n</option>
+        <option value="Portones/Automatizaci√≥n">Portones / Automatizaci√≥n</option>
+        <option value="Jardiner√≠a">Jardiner√≠a / Paisajismo</option>
         <option value="Flete">Flete</option>
         <option value="Combustible">Combustible</option>
         <option value="Comida">Comida</option>
         <option value="Limpieza de obra">Limpieza de obra</option>
-        <option value="Trámites/Permisos">Trámites / Permisos</option>
+        <option value="Tr√°mites/Permisos">Tr√°mites / Permisos</option>
         <option value="Otro">Otro</option>
       </select>
     </div>
 
-    <div class="field only-compra"><label>Descripción</label><input id="fm-descripcion" placeholder="Ej: Perfiles de aluminio"></div>
+    <div class="field only-compra"><label>Descripci√≥n</label><input id="fm-descripcion" placeholder="Ej: Perfiles de aluminio"></div>
     <div class="field only-compra"><label>Proveedor</label><input id="fm-proveedor" placeholder="Nombre del proveedor"></div>
 
-    <div class="field only-gasto hidden"><label>Descripción</label><input id="fm-descripcion-gasto" placeholder="Ej: Flete, comida cuadrilla"></div>
+    <div class="field only-gasto hidden"><label>Descripci√≥n</label><input id="fm-descripcion-gasto" placeholder="Ej: Flete, comida cuadrilla"></div>
 
-    <div class="field only-sueldo hidden"><label>Persona</label><input id="fm-persona" placeholder="Nombre del empleado" list="lista-personas"><datalist id="lista-personas"></datalist></div>
-    <div class="field only-sueldo hidden"><label>Días trabajados</label><input type="number" step="0.5" id="fm-dias" placeholder="Ej: 5"></div>
+    <div class="field only-sueldo-edit hidden"><label>Persona</label><input id="fm-persona" placeholder="Nombre del empleado"></div>
 
-    <div class="field"><label id="fm-monto-label">Monto</label><input type="number" id="fm-monto" placeholder="0" oninput="onMontoInput()"></div>
+    <div class="field only-sueldo-new hidden">
+      <label>Empleados ¬∑ monto pagado</label>
+      <div id="emp-list"></div>
+      <button type="button" class="btn btn-ghost emp-add-btn" id="emp-add-btn" onclick="mostrarAddEmpleado()">+ Agregar empleado</button>
+      <div class="emp-add-form hidden" id="emp-add-form">
+        <input id="emp-nuevo-nombre" placeholder="Nombre del empleado" onkeydown="if(event.key==='Enter')agregarEmpleado()">
+        <button type="button" class="btn btn-primary" onclick="agregarEmpleado()">OK</button>
+        <button type="button" class="btn btn-ghost" onclick="ocultarAddEmpleado()">√ó</button>
+      </div>
+    </div>
+
+    <div class="field" id="wrap-monto"><label id="fm-monto-label">Monto</label><input type="number" id="fm-monto" placeholder="0" oninput="onMontoInput()"></div>
 
     <div class="field only-iva">
       <label>Factura</label>
@@ -594,7 +613,7 @@ body{
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwHpTYq9oohQF8aZLKxPoXpFEgzD6-F7ueuF9OFmSa0Vbkm6u23Ej2b6I1e3lPdbjOC/exec";
 
-let state = { obras: [], movimientos: [] };
+let state = { obras: [], movimientos: [], empleados: [] };
 let pendientes = JSON.parse(localStorage.getItem('obras_pendientes') || '[]');
 let currentObraId = null;
 let currentFiltro = 'todos';
@@ -605,6 +624,7 @@ let editingMovId = null;
 function loadCache() {
   const cache = JSON.parse(localStorage.getItem('obras_cache_v1') || 'null');
   if (cache) state = cache;
+  if (!Array.isArray(state.empleados)) state.empleados = [];
 }
 function saveCache() {
   localStorage.setItem('obras_cache_v1', JSON.stringify(state));
@@ -634,7 +654,7 @@ function formatMoney(n) {
   return '$' + n.toLocaleString('es-AR');
 }
 function formatDate(d) {
-  if (!d) return '—';
+  if (!d) return '‚Äî';
   const s = String(d);
   if (s.includes('T')) return new Date(s).toLocaleDateString('es-AR');
   const parts = s.split('-');
@@ -651,7 +671,7 @@ function genId(prefix) {
 
 async function syncAll(manual) {
   const ind = document.getElementById('sync-indicator');
-  ind.textContent = '⏳ Sincronizando...';
+  ind.textContent = '‚è≥ Sincronizando...';
   ind.style.color = 'var(--muted)';
   try {
     const resp = await fetch(SCRIPT_URL);
@@ -659,14 +679,15 @@ async function syncAll(manual) {
     if (json.status === 'ok') {
       state.obras = json.obras || [];
       state.movimientos = json.movimientos || [];
+      if (Array.isArray(json.empleados)) state.empleados = json.empleados;
       saveCache();
-      ind.textContent = '✓ Actualizado';
+      ind.textContent = '‚úì Actualizado';
       ind.style.color = 'var(--success)';
     } else {
       throw new Error(json.message || 'error');
     }
   } catch (err) {
-    ind.textContent = manual ? '⚠ Sin conexión, mostrando datos guardados' : '';
+    ind.textContent = manual ? '‚ö† Sin conexi√≥n, mostrando datos guardados' : '';
     ind.style.color = 'var(--warning)';
   }
   setTimeout(()=>{ ind.textContent=''; }, 3000);
@@ -706,7 +727,7 @@ function renderPendientesBar() {
   const bar = document.getElementById('pendientes-bar');
   const text = document.getElementById('pendientes-text');
   if (pendientes.length > 0) {
-    text.textContent = '⚠ ' + pendientes.length + ' movimiento(s) sin sincronizar';
+    text.textContent = '‚ö† ' + pendientes.length + ' movimiento(s) sin sincronizar';
     bar.classList.add('show');
   } else {
     bar.classList.remove('show');
@@ -719,13 +740,13 @@ function movsDeObra(obraId) {
 }
 function totalesObra(obraId) {
   const movs = movsDeObra(obraId);
-  const t = { compra: 0, gasto: 0, sueldo: 0, dias: 0, iva: 0 };
+  const t = { compra: 0, gasto: 0, sueldo: 0, iva: 0 };
   movs.forEach(m => {
     const monto = Number(m.monto) || 0;
     if (m.tipo === 'compra') t.compra += monto;
     else if (m.tipo === 'gasto') t.gasto += monto;
-    else if (m.tipo === 'sueldo') { t.sueldo += monto; t.dias += Number(m.dias) || 0; }
-    if (m.conIva === 'si') t.iva += Number(m.iva) || 0;
+    else if (m.tipo === 'sueldo') t.sueldo += monto;
+    if (m.tipo !== 'sueldo' && m.conIva === 'si') t.iva += Number(m.iva) || 0;
   });
   t.total = t.compra + t.gasto + t.sueldo;
   t.count = movs.length;
@@ -751,7 +772,7 @@ function renderDashboard() {
   const wrapFin = document.getElementById('finalizadas-wrap');
 
   elAct.innerHTML = activas.length ? activas.map(obraCardHTML).join('') :
-    '<div class="empty-state">No hay obras activas todavía.<br>Tocá el botón + para crear la primera.</div>';
+    '<div class="empty-state">No hay obras activas todav√≠a.<br>Toc√° el bot√≥n + para crear la primera.</div>';
 
   wrapFin.style.display = finalizadas.length ? '' : 'none';
   elFin.innerHTML = finalizadas.map(obraCardHTML).join('');
@@ -804,7 +825,7 @@ function renderDetalle() {
   if (!o) { goDashboard(); return; }
   const t = totalesObra(o.id);
   document.getElementById('d-nombre').textContent = o.nombre;
-  document.getElementById('d-sub').textContent = [o.cliente, o.direccion, o.fechaInicio ? 'Inicio: ' + formatDate(o.fechaInicio) : ''].filter(Boolean).join(' · ');
+  document.getElementById('d-sub').textContent = [o.cliente, o.direccion, o.fechaInicio ? 'Inicio: ' + formatDate(o.fechaInicio) : ''].filter(Boolean).join(' ¬∑ ');
   const estado = o.estado || 'activa';
   const badge = document.getElementById('d-estado-badge');
   badge.textContent = estado;
@@ -814,7 +835,6 @@ function renderDetalle() {
   document.getElementById('s-compras').textContent = formatMoney(t.compra);
   document.getElementById('s-gastos').textContent = formatMoney(t.gasto);
   document.getElementById('s-sueldos').textContent = formatMoney(t.sueldo);
-  document.getElementById('s-dias').textContent = t.dias;
   document.getElementById('s-iva').textContent = formatMoney(t.iva);
   document.getElementById('s-total').textContent = formatMoney(t.total);
 
@@ -848,22 +868,22 @@ function renderMovList() {
 
   const el = document.getElementById('mov-list');
   if (!movs.length) {
-    el.innerHTML = '<div class="empty-state">Sin movimientos todavía.</div>';
+    el.innerHTML = '<div class="empty-state">Sin movimientos todav√≠a.</div>';
     return;
   }
   el.innerHTML = movs.map(m => {
     const pendiente = m._pendiente ? ' <span class="badge badge-pendiente">pendiente</span>' : '';
     let desc = m.descripcion;
-    let meta = formatDate(m.fecha) + (m.cargadoPor ? ' · ' + m.cargadoPor : '');
-    if (m.tipo === 'compra') meta = formatDate(m.fecha) + (m.rubro ? ' · ' + m.rubro : '') + (m.proveedor ? ' · ' + m.proveedor : '') + (m.cargadoPor ? ' · ' + m.cargadoPor : '');
-    if (m.tipo === 'gasto') meta = formatDate(m.fecha) + (m.rubro ? ' · ' + m.rubro : '') + (m.cargadoPor ? ' · ' + m.cargadoPor : '');
-    if (m.tipo === 'sueldo') { desc = m.persona; meta = formatDate(m.fecha) + (m.dias ? ' · ' + m.dias + ' día' + (Number(m.dias)===1?'':'s') : '') + (m.cargadoPor ? ' · ' + m.cargadoPor : ''); }
-    const ivaTag = (m.conIva === 'si' && Number(m.iva) > 0) ? ' · IVA ' + formatMoney(m.iva) : (m.tipo !== 'sueldo' ? ' · sin IVA' : '');
+    let meta = formatDate(m.fecha) + (m.cargadoPor ? ' ¬∑ ' + m.cargadoPor : '');
+    if (m.tipo === 'compra') meta = formatDate(m.fecha) + (m.rubro ? ' ¬∑ ' + m.rubro : '') + (m.proveedor ? ' ¬∑ ' + m.proveedor : '') + (m.cargadoPor ? ' ¬∑ ' + m.cargadoPor : '');
+    if (m.tipo === 'gasto') meta = formatDate(m.fecha) + (m.rubro ? ' ¬∑ ' + m.rubro : '') + (m.cargadoPor ? ' ¬∑ ' + m.cargadoPor : '');
+    if (m.tipo === 'sueldo') { desc = m.persona; meta = formatDate(m.fecha) + (m.cargadoPor ? ' ¬∑ ' + m.cargadoPor : ''); }
+    const ivaTag = (m.conIva === 'si' && Number(m.iva) > 0) ? ' ¬∑ IVA ' + formatMoney(m.iva) : (m.tipo !== 'sueldo' ? ' ¬∑ sin IVA' : '');
     if (m.tipo !== 'sueldo') meta += ivaTag;
     return `<div class="mov-item" onclick='verMovimiento(${JSON.stringify(m.id)})'>
       <div class="mov-left">
         <div class="mov-top-row"><span class="badge badge-${m.tipo}">${m.tipo}</span>${pendiente}</div>
-        <div class="mov-desc">${escapeHtml(desc || '—')}</div>
+        <div class="mov-desc">${escapeHtml(desc || '‚Äî')}</div>
         <div class="mov-meta">${escapeHtml(meta)}</div>
       </div>
       <div class="mov-right"><div class="mov-monto">${formatMoney(m.monto)}</div></div>
@@ -900,7 +920,7 @@ function closeModal(id) {
 
 async function guardarObra() {
   const nombre = document.getElementById('fo-nombre').value.trim();
-  if (!nombre) { alert('Poné un nombre para la obra'); return; }
+  if (!nombre) { alert('Pon√© un nombre para la obra'); return; }
   const editId = document.getElementById('modal-obra').dataset.editId;
   const payload = {
     id: editId || genId('O'),
@@ -945,8 +965,8 @@ async function eliminarObra() {
   if (!o) return;
   const t = totalesObra(o.id);
   const aviso = t.count > 0
-    ? `¿Eliminar "${o.nombre}"? Se van a borrar también sus ${t.count} movimiento(s). Esto no se puede deshacer.`
-    : `¿Eliminar "${o.nombre}"? Esto no se puede deshacer.`;
+    ? `¬øEliminar "${o.nombre}"? Se van a borrar tambi√©n sus ${t.count} movimiento(s). Esto no se puede deshacer.`
+    : `¬øEliminar "${o.nombre}"? Esto no se puede deshacer.`;
   if (!confirm(aviso)) return;
 
   const id = o.id;
@@ -965,17 +985,126 @@ function setTipoMov(tipo) {
   document.querySelectorAll('.tipo-opt[data-tipo]').forEach(el => el.classList.toggle('active', el.dataset.tipo === tipo));
   document.querySelectorAll('.only-compra').forEach(el => el.classList.toggle('hidden', tipo !== 'compra'));
   document.querySelectorAll('.only-gasto').forEach(el => el.classList.toggle('hidden', tipo !== 'gasto'));
-  document.querySelectorAll('.only-sueldo').forEach(el => el.classList.toggle('hidden', tipo !== 'sueldo'));
   document.querySelectorAll('.only-iva').forEach(el => el.classList.toggle('hidden', tipo === 'sueldo'));
   document.querySelectorAll('.only-cg').forEach(el => el.classList.toggle('hidden', tipo === 'sueldo'));
   document.getElementById('fm-monto-label').textContent = tipo === 'sueldo' ? 'Monto pagado' : 'Monto';
+  updateSueldoVisibility();
   setConIva(tipo === 'gasto' ? 'no' : 'si');
+}
+
+function updateSueldoVisibility() {
+  const sueldo = currentTipoMov === 'sueldo';
+  const nuevo = sueldo && !editingMovId;
+  document.querySelectorAll('.only-sueldo-new').forEach(el => el.classList.toggle('hidden', !nuevo));
+  document.querySelectorAll('.only-sueldo-edit').forEach(el => el.classList.toggle('hidden', !(sueldo && editingMovId)));
+  document.getElementById('wrap-monto').classList.toggle('hidden', nuevo);
+  if (nuevo) renderEmpleadosForm();
+}
+
+function empleadosOrdenados() {
+  return state.empleados.slice().sort((a, b) => String(a.nombre).localeCompare(String(b.nombre), 'es'));
+}
+
+function renderEmpleadosForm() {
+  const prev = {};
+  document.querySelectorAll('#emp-list input').forEach(i => { prev[i.dataset.id] = i.value; });
+  const lista = empleadosOrdenados();
+  const el = document.getElementById('emp-list');
+  if (!lista.length) {
+    el.innerHTML = '<div class="emp-empty">Todav√≠a no hay empleados. Toc√° "+ Agregar empleado".</div>';
+    return;
+  }
+  el.innerHTML = lista.map(e => `<div class="emp-row">
+    <div class="emp-nombre">${escapeHtml(e.nombre)}</div>
+    <input type="number" inputmode="decimal" placeholder="0" data-id="${escapeHtml(e.id)}" value="${escapeHtml(prev[e.id] || '')}">
+    <button type="button" class="emp-del" title="Borrar empleado" data-id="${escapeHtml(e.id)}" onclick="eliminarEmpleado(this.dataset.id)">√ó</button>
+  </div>`).join('');
+}
+
+function mostrarAddEmpleado() {
+  document.getElementById('emp-add-btn').classList.add('hidden');
+  document.getElementById('emp-add-form').classList.remove('hidden');
+  const inp = document.getElementById('emp-nuevo-nombre');
+  inp.value = '';
+  inp.focus();
+}
+
+function ocultarAddEmpleado() {
+  document.getElementById('emp-add-form').classList.add('hidden');
+  document.getElementById('emp-add-btn').classList.remove('hidden');
+}
+
+async function agregarEmpleado() {
+  const nombre = document.getElementById('emp-nuevo-nombre').value.trim();
+  if (!nombre) return;
+  if (state.empleados.some(e => String(e.nombre).trim().toLowerCase() === nombre.toLowerCase())) {
+    alert('Ya hay un empleado con ese nombre');
+    return;
+  }
+  const emp = { id: genId('E'), nombre: nombre };
+  state.empleados.push(emp);
+  saveCache();
+  ocultarAddEmpleado();
+  renderEmpleadosForm();
+  const payload = { accion: 'nuevo_empleado', id: emp.id, nombre: emp.nombre };
+  const ok = await postAccion(payload);
+  if (!ok) encolarPendiente(payload);
+}
+
+async function eliminarEmpleado(id) {
+  const e = state.empleados.find(x => String(x.id) === String(id));
+  if (!e) return;
+  if (!confirm(`¬øSacar a ${e.nombre} de la lista de empleados? Los pagos que ya cargaste no se borran.`)) return;
+  state.empleados = state.empleados.filter(x => String(x.id) !== String(id));
+  saveCache();
+  renderEmpleadosForm();
+  const payload = { accion: 'eliminar_empleado', id: id };
+  const ok = await postAccion(payload);
+  if (!ok) encolarPendiente(payload);
+}
+
+async function guardarSueldos() {
+  const cargadoPor = document.getElementById('fm-cargadopor').value.trim();
+  if (cargadoPor) setUsuario(cargadoPor);
+  const fecha = document.getElementById('fm-fecha').value || todayISO();
+
+  const payloads = [];
+  document.querySelectorAll('#emp-list input').forEach(inp => {
+    const monto = Number(inp.value) || 0;
+    const emp = state.empleados.find(e => String(e.id) === String(inp.dataset.id));
+    if (monto > 0 && emp) {
+      payloads.push({
+        id: genId('M'), obraId: currentObraId, fecha: fecha, tipo: 'sueldo',
+        persona: emp.nombre, monto: monto, cargadoPor: cargadoPor, accion: 'nuevo_movimiento'
+      });
+    }
+  });
+  if (!payloads.length) { alert('Pon√© el monto de al menos un empleado'); return; }
+
+  payloads.forEach(p => state.movimientos.push(Object.assign({fechaCreacion: new Date().toISOString(), _pendiente: true}, p)));
+  saveCache();
+  closeModal('modal-mov');
+  renderDetalle();
+  renderDashboard();
+
+  for (const p of payloads) {
+    const ok = await postAccion(p);
+    if (ok) {
+      const idx = state.movimientos.findIndex(m => String(m.id) === String(p.id));
+      if (idx > -1) delete state.movimientos[idx]._pendiente;
+    } else {
+      encolarPendiente(p);
+    }
+  }
+  saveCache();
+  renderDetalle();
+  renderDashboard();
 }
 
 function setConIva(v) {
   currentConIva = v;
   document.querySelectorAll('.tipo-opt[data-iva]').forEach(el => el.classList.toggle('active', el.dataset.iva === v));
-  document.getElementById('wrap-iva-monto').classList.toggle('hidden', v !== 'si');
+  document.getElementById('wrap-iva-monto').classList.toggle('hidden', v !== 'si' || currentTipoMov === 'sueldo');
   if (v === 'si') recalcIva();
 }
 
@@ -990,21 +1119,21 @@ function recalcIva() {
 }
 
 function openMovModal() {
-  if (!currentObraId) { alert('Abrí una obra primero'); return; }
+  if (!currentObraId) { alert('Abr√≠ una obra primero'); return; }
   editingMovId = null;
   document.getElementById('fm-fecha').value = todayISO();
   document.getElementById('fm-descripcion').value = '';
   document.getElementById('fm-proveedor').value = '';
   document.getElementById('fm-descripcion-gasto').value = '';
   document.getElementById('fm-persona').value = '';
-  document.getElementById('fm-dias').value = '';
+  document.getElementById('emp-list').innerHTML = '';
+  ocultarAddEmpleado();
   document.getElementById('fm-monto').value = '';
   document.getElementById('fm-iva').value = '';
   document.getElementById('fm-rubro').value = 'Otro';
   document.getElementById('fm-cargadopor').value = getUsuario();
   document.getElementById('btn-delete-mov').classList.add('hidden');
   setTipoMov('compra');
-  fillPersonasDatalist();
   document.getElementById('modal-mov').classList.add('show');
 }
 
@@ -1020,8 +1149,8 @@ function verMovimiento(id) {
   document.getElementById('fm-descripcion-gasto').value = m.tipo === 'gasto' ? (m.descripcion||'') : '';
   document.getElementById('fm-rubro').value = m.rubro || 'Otro';
   document.getElementById('fm-persona').value = m.persona || '';
-  document.getElementById('fm-dias').value = m.dias || '';
-  fillPersonasDatalist();
+  document.getElementById('emp-list').innerHTML = '';
+  ocultarAddEmpleado();
   setTipoMov(m.tipo);
   setConIva(m.conIva || (m.tipo === 'gasto' ? 'no' : 'si'));
   document.getElementById('fm-iva').value = m.iva || '';
@@ -1029,14 +1158,10 @@ function verMovimiento(id) {
   document.getElementById('modal-mov').classList.add('show');
 }
 
-function fillPersonasDatalist() {
-  const personas = [...new Set(state.movimientos.filter(m => m.tipo === 'sueldo' && m.persona).map(m => m.persona))];
-  document.getElementById('lista-personas').innerHTML = personas.map(p => `<option value="${escapeHtml(p)}">`).join('');
-}
-
 async function guardarMovimiento() {
+  if (currentTipoMov === 'sueldo' && !editingMovId) return guardarSueldos();
   const monto = Number(document.getElementById('fm-monto').value) || 0;
-  if (!monto) { alert('Poné un monto'); return; }
+  if (!monto) { alert('Pon√© un monto'); return; }
   const cargadoPor = document.getElementById('fm-cargadopor').value.trim();
   if (cargadoPor) setUsuario(cargadoPor);
 
@@ -1056,7 +1181,6 @@ async function guardarMovimiento() {
     payload.descripcion = document.getElementById('fm-descripcion-gasto').value.trim();
   } else if (currentTipoMov === 'sueldo') {
     payload.persona = document.getElementById('fm-persona').value.trim();
-    payload.dias = Number(document.getElementById('fm-dias').value) || 0;
   }
   if (currentTipoMov === 'compra' || currentTipoMov === 'gasto') {
     payload.rubro = document.getElementById('fm-rubro').value;
@@ -1089,7 +1213,7 @@ async function guardarMovimiento() {
 
 async function eliminarMovimiento() {
   if (!editingMovId) return;
-  if (!confirm('¿Eliminar este movimiento?')) return;
+  if (!confirm('¬øEliminar este movimiento?')) return;
   const id = editingMovId;
   state.movimientos = state.movimientos.filter(m => String(m.id) !== String(id));
   saveCache();
